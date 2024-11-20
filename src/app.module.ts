@@ -7,6 +7,8 @@ import { join } from 'path';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Pet } from './pets/pet.entity';
+import { OwnersModule } from './owners/owners.module';
+import { Owner } from './owners/entities/owner.entity';
 
 @Module({
   imports: [
@@ -17,10 +19,11 @@ import { Pet } from './pets/pet.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: ':memory',
-      entities: [Pet],
+      entities: [Pet, Owner],
       synchronize: true, //not for production, migrations instead
     }),
     PetsModule,
+    OwnersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
